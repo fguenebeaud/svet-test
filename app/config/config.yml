@@ -7,6 +7,16 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    scraping:
+        leboncoin:
+            url: "https://www.leboncoin.fr/[CATEGORY]/offres/[PLACE]/?o=[PAGE]"
+            page_start: 1
+            number_per_pages: 35
+            filters:
+              filter_advert: 'section.item_infos'
+              filter_price:  'h3.item_price',
+              filter_place:  'p.item_supp:last_child'
+              filter_title:  'h2.item_title'
 
 framework:
     #esi:             ~
