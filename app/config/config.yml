@@ -13,10 +13,15 @@ parameters:
             page_start: 1
             number_per_pages: 35
             filters:
-              filter_advert: "section.item_infos"
-              filter_price:  "h3.item_price"
-              filter_place:  "p.item_supp:last_child"
-              filter_title:  "h2.item_title"
+              filter_advert:         "section.block-white a.list_item"
+              filter_price:          "h3.item_price"
+              filter_place:          "p.item_supp"
+              filter_title:          "h2.item_title"
+              filter_url:            "a.list_item"
+              filter_advert_default: "item_info"
+              filter_price_default:  "item_price"
+              add_protocole: true
+              protocole: "https:"
 
 framework:
     #esi:             ~
@@ -74,3 +79,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+imports:
+    - { resource: "@AppBundle/Resources/config/services.yml" }

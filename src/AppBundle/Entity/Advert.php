@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Advert
  *
  * @ORM\Table(name="advert")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AdvertRepository")
+ * @UniqueEntity("link")
  */
 class Advert
 {
@@ -53,7 +55,6 @@ class Advert
      * @var float
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=true)
-     * @Assert\NotBlank()
      */
     private $price;
 
@@ -62,7 +63,7 @@ class Advert
      *
      * @ORM\Column(name="link", type="string", length=255, nullable=false)
      * @Assert\Url(
-     *    protocols = {"http"}
+     *    protocols = {"https"}
      * )
      * @Assert\NotBlank()
      */
