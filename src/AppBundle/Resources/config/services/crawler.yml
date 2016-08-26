@@ -1,0 +1,5 @@
+services:
+    app.crawler.service:
+        class: AppBundle\Service\CrawlerService
+        arguments:
+            - '%scraping%'
