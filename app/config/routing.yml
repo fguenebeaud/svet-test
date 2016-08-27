@@ -6,3 +6,5 @@ advert:
     resource: "@AppBundle/Controller/AdvertController.php"
     type:     annotation
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

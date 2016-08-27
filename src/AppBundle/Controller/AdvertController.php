@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Advert;
+use AppBundle\Repository\DefaultRepository;
 use AppBundle\Service\CrawlerService;
 use AppBundle\Type\AdvertType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -151,15 +152,32 @@ class AdvertController extends Controller
     }
 
     /**
-     * @Route("/advert", name="advert")
+     * @Route("/advert", options={"expose"=true}, name="advert")
+     * @param Request $request
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $adverts = $this->getDoctrine()->getRepository('AppBundle:Advert')->findAll();
+        $terms = '';
+        $order = DefaultRepository::SORT_DESC;
+
+        if ($request->query->has('terms')) {
+            $terms = $request->query->get('terms');
+        }
+
+        if ($request->query->has('order')) {
+            $order = $request->query->get('order');
+
+            if ($order !== DefaultRepository::SORT_DESC && $order !== DefaultRepository::SORT_ASC) {
+                $order = DefaultRepository::SORT_DESC;
+            }
+        }
+
+        $adverts = $this->getDoctrine()->getRepository('AppBundle:Advert')->findByTitle('title', $terms, 'price', $order);
 
         return $this->render('@App/Advert/index.html.twig', array(
             'adverts' => $adverts,
+            'order'   => $order,
         ));
     }
 

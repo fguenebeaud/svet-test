@@ -65,8 +65,13 @@
     <script src="{{ asset('bundles/app/js/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/morrisjs/morris.min.js') }}"></script>
 
+    <!-- FOSJSRouting -->
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
     <!-- Custom Theme JavaScript -->
     <script src="{{ asset('bundles/app/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/script.js') }}"></script>
 {% endblock %}
 </body>
 </html>
