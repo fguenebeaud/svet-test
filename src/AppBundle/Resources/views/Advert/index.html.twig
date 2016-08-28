@@ -45,6 +45,7 @@
                                 <th>
                                     Prix {% if order == 'ASC' %}<i class="fa fa-chevron-up order-desc"></i>{%endif %}{% if order == 'DESC' %}<i class="fa fa-chevron-down order-asc"></i>{% endif %}
                                 </th>
+                                <th>Clicks</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -59,7 +60,7 @@
                                             {{ advert.createdAt|date('d/m/Y H:i') }}
                                         </td>
                                         <td>
-                                            <a target="_blank" title="Aller vers l'annonce" href="{{ advert.link }}">{{ advert.title }}</a>
+                                            <a data-id="{{ advert.id }}" target="_blank" class="disable-click" title="Aller vers l'annonce" href="{{ advert.link }}">{{ advert.title }}</a>
                                         </td>
                                         <td>
                                             {{ advert.place }}
@@ -68,6 +69,9 @@
                                             {% if advert.price %}
                                                 {{ advert.price|number_format(2, ',')}} €
                                             {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ advert.click }}
                                         </td>
                                         <td>
                                             <a href="{{ path('advert_delete', {'id': advert.id}) }}" title="Remove advert" class="btn btn-danger"><i class="fa fa-times"></i></a>

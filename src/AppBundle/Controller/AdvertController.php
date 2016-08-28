@@ -8,6 +8,8 @@ use AppBundle\Type\AdvertType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -201,6 +203,31 @@ class AdvertController extends Controller
         );
 
         return $this->redirect($this->generateUrl('advert'));
+    }
+
+    /**
+     * @Route("/advert/click/{id}", options={"expose"=true}, requirements={"id" = "\d+"}, name="advert_click")
+     * @return RedirectResponse
+     * @param integer $id
+     */
+    public function clickAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $advert = $em->getRepository('AppBundle:Advert')->find($id);
+
+        if ($advert instanceof Advert) {
+            $advert->setClick($advert->getClick() + 1);
+
+            $em->persist($advert);
+            $em->flush();
+        } else {
+            throw new Exception('Unable to find Advert');
+        }
+
+        return new JsonResponse([
+            'code' => 200
+        ]);
     }
 
     /**

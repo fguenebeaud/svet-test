@@ -70,6 +70,13 @@ class Advert
     private $link;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="click", type="integer", nullable=true)
+     */
+    private $click;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -176,6 +183,25 @@ class Advert
     public function setLink($link)
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getClick()
+    {
+        return $this->click;
+    }
+
+    /**
+     * @param int $click
+     * @return Advert
+     */
+    public function setClick($click)
+    {
+        $this->click = $click;
 
         return $this;
     }
